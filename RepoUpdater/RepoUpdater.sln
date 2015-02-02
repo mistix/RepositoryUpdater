@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoUpdater", "RepoUpdater.csproj", "{73E17E80-DA7A-4880-852A-EF0B1C35922C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoUpdater.Model", "..\RepoUpdater.Model\RepoUpdater.Model.csproj", "{E95525A4-0091-4294-B185-BF45D977C04F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoUpdater.Model.Tests", "RepoUpdater.Model.Tests\RepoUpdater.Model.Tests.csproj", "{962CE358-07E1-40CA-8E8E-C229A7211447}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73E17E80-DA7A-4880-852A-EF0B1C35922C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73E17E80-DA7A-4880-852A-EF0B1C35922C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73E17E80-DA7A-4880-852A-EF0B1C35922C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E17E80-DA7A-4880-852A-EF0B1C35922C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E95525A4-0091-4294-B185-BF45D977C04F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E95525A4-0091-4294-B185-BF45D977C04F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E95525A4-0091-4294-B185-BF45D977C04F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E95525A4-0091-4294-B185-BF45D977C04F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962CE358-07E1-40CA-8E8E-C229A7211447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962CE358-07E1-40CA-8E8E-C229A7211447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962CE358-07E1-40CA-8E8E-C229A7211447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962CE358-07E1-40CA-8E8E-C229A7211447}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
