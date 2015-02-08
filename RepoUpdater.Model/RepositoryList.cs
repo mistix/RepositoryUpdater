@@ -1,30 +1,48 @@
 ﻿using RepoUpdater.Model.Abstraction;
+using System;
 using System.Collections.Generic;
 
 namespace RepoUpdater.Model
 {
     public class RepositoryList
     {
-        public IEnumerable<IRepositoryUpdaterStrategy> Repositories
+        private readonly List<RepositoryUpdaterBase> _repositoryUpdaterStrategies;
+
+        public RepositoryList()
         {
-            get { return null; }
+            _repositoryUpdaterStrategies = new List<RepositoryUpdaterBase>();
         }
 
-        public void Add(IRepositoryUpdaterStrategy repository)
+        public IEnumerable<RepositoryUpdaterBase> Repositories
         {
+            get { return _repositoryUpdaterStrategies; }
         }
 
-        public void Remove(IRepositoryUpdaterStrategy repository)
+        public void Add(RepositoryUpdaterBase repository)
         {
+            if (repository == null)
+                throw new ArgumentException("Repository cannot be null");
+
+            if (_repositoryUpdaterStrategies.Contains(repository))
+                return;
+
+            _repositoryUpdaterStrategies.Add(repository);
+        }
+
+        public void Remove(RepositoryUpdaterBase repository)
+        {
+            if (_repositoryUpdaterStrategies.Contains(repository))
+                _repositoryUpdaterStrategies.Remove(repository);
         }
 
         public void UpdateAll()
         {
+            _repositoryUpdaterStrategies.ForEach(item => item.Update());
         }
 
-        public void Clean()
+        public void Clear()
         {
-            throw new System.NotImplementedException();
+            _repositoryUpdaterStrategies.Clear();
         }
     }
 }

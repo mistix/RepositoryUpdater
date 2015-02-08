@@ -6,14 +6,14 @@ namespace RepoUpdater.Model.Factories
 {
     public static class RepositoryFactory
     {
-        public static IRepositoryUpdaterStrategy Create(RepositoryType repositoryType, string repositoryPath)
+        public static RepositoryUpdaterBase Create(RepositoryType repositoryType, string repositoryPath)
         {
             switch (repositoryType)
             {
                 case RepositoryType.Git:
-                    return new GitRepository();
+                    return new GitRepository(repositoryPath);
                 case RepositoryType.Tfs:
-                    return new TfsRepository();
+                    return new TfsRepository(repositoryPath);
                 default:
                     throw new ArgumentOutOfRangeException("repositoryType");
             }

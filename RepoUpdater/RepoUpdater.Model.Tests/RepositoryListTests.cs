@@ -9,16 +9,17 @@ namespace RepoUpdater.Model.Tests
     public class RepositoryListTests
     {
         private readonly RepositoryList _target;
-        private readonly IList<IRepositoryUpdaterStrategy> _repositories;
+        private readonly IList<RepositoryUpdaterBase> _repositories;
+        private const string Path = "path";
 
         public RepositoryListTests()
         {
             _target = new RepositoryList();
-            _repositories = new List<IRepositoryUpdaterStrategy>()
+            _repositories = new List<RepositoryUpdaterBase>()
             {
-                Substitute.For<IRepositoryUpdaterStrategy>(),
-                Substitute.For<IRepositoryUpdaterStrategy>(),
-                Substitute.For<IRepositoryUpdaterStrategy>(),
+                Substitute.For<RepositoryUpdaterBase>(Path),
+                Substitute.For<RepositoryUpdaterBase>(Path),
+                Substitute.For<RepositoryUpdaterBase>(Path),
             };
         }
 
@@ -61,9 +62,23 @@ namespace RepoUpdater.Model.Tests
 
             Assert.Equal(2, _target.Repositories.Count());
 
-            _target.Clean();
+            _target.Clear();
 
             Assert.Equal(0, _target.Repositories.Count());
+        }
+
+        [Fact]
+        public void Should_Update_All_Element_In_List()
+        {
+            _target.Add(_repositories[0]);
+            _target.Add(_repositories[1]);
+            _target.Add(_repositories[2]);
+
+            _target.UpdateAll();
+
+            _repositories[0].Received().Update();
+            _repositories[1].Received().Update();
+            _repositories[2].Received().Update();
         }
     }
 }

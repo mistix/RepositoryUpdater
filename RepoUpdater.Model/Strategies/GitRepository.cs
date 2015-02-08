@@ -3,13 +3,16 @@ using System;
 
 namespace RepoUpdater.Model.Strategies
 {
-    public class GitRepository : IRepositoryUpdaterStrategy
+    public class GitRepository : RepositoryUpdaterBase
     {
-        public void Update()
+        public GitRepository(string path)
+            : base(path)
+        {
+        }
+
+        public override void Update()
         {
             throw new NotImplementedException();
         }
-
-        public string Path { get; private set; }
     }
 }

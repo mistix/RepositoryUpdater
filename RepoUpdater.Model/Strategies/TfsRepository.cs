@@ -3,13 +3,16 @@ using System;
 
 namespace RepoUpdater.Model.Strategies
 {
-    public class TfsRepository : IRepositoryUpdaterStrategy
+    public class TfsRepository : RepositoryUpdaterBase
     {
-        public void Update()
+        public TfsRepository(string path)
+            : base(path)
+        {
+        }
+
+        public override void Update()
         {
             throw new NotImplementedException();
         }
-
-        public string Path { get; private set; }
     }
 }
