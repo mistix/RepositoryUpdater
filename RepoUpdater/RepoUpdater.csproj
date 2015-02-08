@@ -70,6 +70,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenters\IMainPresenter.cs" />
+    <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\network_server_database.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RepoUpdater.Model\RepoUpdater.Model.csproj">
+      <Project>{e95525a4-0091-4294-b185-bf45d977c04f}</Project>
+      <Name>RepoUpdater.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
