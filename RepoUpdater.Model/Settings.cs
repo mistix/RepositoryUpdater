@@ -1,8 +1,8 @@
 ﻿namespace RepoUpdater.Model
 {
-    public class Settings
+    public static class Settings
     {
-        public string GitPath { get; set; }
-        public string TFSPath { get; set; }
+        public static string GitPath { get; set; }
+        public static string TFSPath { get; set; }
     }
 }
