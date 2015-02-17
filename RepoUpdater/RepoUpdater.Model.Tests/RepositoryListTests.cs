@@ -2,6 +2,7 @@
 using RepoUpdater.Model.Abstraction;
 using System.Collections.Generic;
 using System.Linq;
+using TinyMessenger;
 using Xunit;
 
 namespace RepoUpdater.Model.Tests
@@ -15,11 +16,14 @@ namespace RepoUpdater.Model.Tests
         public RepositoryListTests()
         {
             _target = new RepositoryList();
+            var command = Substitute.For<ICommandLine>();
+            var eventBus = Substitute.For<ITinyMessengerHub>();
+
             _repositories = new List<RepositoryUpdaterBase>()
             {
-                Substitute.For<RepositoryUpdaterBase>(Path),
-                Substitute.For<RepositoryUpdaterBase>(Path),
-                Substitute.For<RepositoryUpdaterBase>(Path),
+                Substitute.For<RepositoryUpdaterBase>(Path, command, eventBus),
+                Substitute.For<RepositoryUpdaterBase>(Path, command, eventBus),
+                Substitute.For<RepositoryUpdaterBase>(Path, command, eventBus)
             };
         }
 
