@@ -1,5 +1,6 @@
 ﻿using NSubstitute;
 using RepoUpdater.Model.Strategies;
+using System;
 using TinyMessenger;
 using Xunit;
 
@@ -7,22 +8,41 @@ namespace RepoUpdater.Model.Tests
 {
     public class GitRepositoryTests
     {
+        private const string RepositoryPath = @"D:\programowanie\project\code_kats\LCD_Kat";
+
+        public GitRepositoryTests()
+        {
+            Settings.GitPath = @"C:\Program Files\Git\bin\git.exe";
+        }
+
         [Fact]
         public void ExecuteGitTfs()
         {
-            Settings.GitPath = @"C:\Program Files\Git\bin\git.exe";
-            var path = @"D:\programowanie\project\code_kats\LCD_Kat";
             var command = Substitute.For<ICommandLine>();
 
             var eventBus = Substitute.For<ITinyMessengerHub>();
             eventBus.Publish(Arg.Any<ITinyMessage>());
 
-            var target = new GitRepository(path, command, eventBus);
+            var target = new GitRepository(RepositoryPath, command, eventBus);
 
             target.Update();
 
             // Assert
             eventBus.Received().Publish(Arg.Any<ITinyMessage>());
+        }
+
+        [Fact]
+        public void ExecuteGitRepository_RealRepository()
+        {
+            var command = new CommandLine();
+            var eventBus = Substitute.For<ITinyMessengerHub>();
+            eventBus.Publish(Arg.Any<ITinyMessage>());
+
+            var target = new GitRepository(RepositoryPath, command, eventBus);
+            target.Update();
+
+            eventBus.DidNotReceive().Publish(Arg.Any<GenericTinyMessage<Exception>>());
+            eventBus.Received().Publish(Arg.Any<GenericTinyMessage<string>>());
         }
     }
 }
