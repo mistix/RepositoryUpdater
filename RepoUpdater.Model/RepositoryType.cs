@@ -4,6 +4,7 @@
     {
         Git,
         Tfs,
+        GitTfs,
         Unknown
     }
 }

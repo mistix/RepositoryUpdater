@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Abstraction\RepositoryUpdaterBase.cs" />
     <Compile Include="CommandLine.cs" />
+    <Compile Include="Factories\IRepositoryFactory.cs" />
     <Compile Include="Factories\RepositoryFactory.cs" />
     <Compile Include="ICommandLine.cs" />
     <Compile Include="ModelView\RepositoryItem.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="RepositoryType.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Strategies\GitRepository.cs" />
+    <Compile Include="Strategies\GitTfsRepository.cs" />
     <Compile Include="Strategies\TfsRepository.cs" />
     <Compile Include="TinyMessenger.cs" />
   </ItemGroup>

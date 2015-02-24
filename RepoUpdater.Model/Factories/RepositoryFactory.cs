@@ -5,7 +5,7 @@ using TinyMessenger;
 
 namespace RepoUpdater.Model.Factories
 {
-    public class RepositoryFactory
+    public class RepositoryFactory : IRepositoryFactory
     {
         private ITinyMessengerHub _eventBus;
 
@@ -24,6 +24,8 @@ namespace RepoUpdater.Model.Factories
                     return new GitRepository(repositoryPath, command, _eventBus);
                 case RepositoryType.Tfs:
                     return new TfsRepository(repositoryPath, command, _eventBus);
+                case RepositoryType.GitTfs:
+                    return new GitTfsRepository(repositoryPath, command, _eventBus);
                 default:
                     throw new ArgumentOutOfRangeException("repositoryType");
             }

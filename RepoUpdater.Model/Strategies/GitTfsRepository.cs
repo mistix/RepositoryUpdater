@@ -1,14 +1,13 @@
-using RepoUpdater.Model.Abstraction;
-using System;
+﻿using System;
 using TinyMessenger;
 
 namespace RepoUpdater.Model.Strategies
 {
-    public class GitRepository : RepositoryUpdaterBase
+    public class GitTfsRepository : GitRepository
     {
-        private const string PullArgument = "--git-dir={0}\\.git --work-tree={0} pull";
+        protected new const string PullArgument = "--git-dir={0}\\.git --work-tree={0} tfs pull";
 
-        public GitRepository(string path, ICommandLine commandLine, ITinyMessengerHub eventBus)
+        public GitTfsRepository(string path, ICommandLine commandLine, ITinyMessengerHub eventBus)
             : base(path, commandLine, eventBus)
         {
         }
@@ -20,7 +19,7 @@ namespace RepoUpdater.Model.Strategies
                 var executionArguments = string.Format(PullArgument, RepositoryPath);
                 var output = _command.Execute(Settings.GitPath, executionArguments, true, true, true);
 
-                var message = new GenericTinyMessage<string>(this, string.Format("Git updated: {0}", output));
+                var message = new GenericTinyMessage<string>(this, string.Format("Git TFS updated: {0}", output));
                 _eventBus.Publish(message);
             }
             catch (Exception exception)

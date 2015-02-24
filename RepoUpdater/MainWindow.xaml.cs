@@ -1,4 +1,4 @@
-﻿using RepoUpdater.Presenters;
+﻿using RepoUpdater.ViewModels;
 using System.Windows;
 
 namespace RepoUpdater
@@ -8,10 +8,12 @@ namespace RepoUpdater
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(IMainViewModel mainViewModel)
         {
             InitializeComponent();
-            DataContext = new MainPresenter();
+
+            DataContext = mainViewModel;
+            mainViewModel.CloseWindow += (sender, arguments) => Close();
         }
     }
 }
