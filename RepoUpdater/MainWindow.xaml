@@ -8,14 +8,14 @@
         <StackPanel>
             <Menu IsMainMenu="True" Height="24" VerticalAlignment="Top">
                 <MenuItem Header="_File" >
-                    <MenuItem Header="_New..." Command="{Binding Path=CloseMainWindow}" />
+                    <MenuItem Header="_New..." Command="{Binding Path=OpenNewItemWindow}" />
                     <Separator />
                     <MenuItem Header="_Open..." />
                     <Separator />
                     <MenuItem Header="_Save" />
                     <MenuItem Header="_Save As..." />
                     <Separator />
-                    <MenuItem Header="_Exit" />
+                    <MenuItem Header="_Exit" Command="{Binding Path=CloseMainWindow}"/>
                 </MenuItem>
                 <MenuItem Header="_Settings" />
                 <MenuItem Header="_About" />
