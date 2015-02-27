@@ -7,7 +7,7 @@ namespace RepoUpdater.Model.Strategies
     public class TfsRepository : RepositoryUpdaterBase
     {
         public TfsRepository(string path, ICommandLine commandLine, ITinyMessengerHub eventBus)
-            : base(path, commandLine, eventBus)
+            : base(path, "TFS", commandLine, eventBus)
         {
         }
 

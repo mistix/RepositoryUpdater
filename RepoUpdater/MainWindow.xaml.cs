@@ -1,4 +1,4 @@
-﻿using RepoUpdater.ViewModels;
+﻿using RepoUpdater.ViewModels.Abstraction;
 using System.Windows;
 
 namespace RepoUpdater
@@ -13,6 +13,7 @@ namespace RepoUpdater
             InitializeComponent();
 
             DataContext = mainViewModel;
+
             mainViewModel.CloseWindow += (sender, arguments) => Close();
         }
     }

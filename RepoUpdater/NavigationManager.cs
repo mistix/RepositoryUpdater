@@ -19,9 +19,4 @@ namespace RepoUpdater
                 window.Show();
         }
     }
-
-    public interface INavigationManager
-    {
-        void OpenAddNewItemWindow();
-    }
 }

@@ -21,11 +21,12 @@
                 <MenuItem Header="_About" />
             </Menu>
 
-            <DataGrid ItemsSource="{Binding Repositories}" AutoGenerateColumns="False">
+            <DataGrid ItemsSource="{Binding Repositories}" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Typ" Binding="{Binding RepositoryType}" />
-                    <DataGridTextColumn Header="Śćieżka" Binding="{Binding Path}" />
-                    <DataGridCheckBoxColumn Header="Rekursywnie" Binding="{Binding Recursive}" />
+                    <DataGridTextColumn Header="Typ" Width="1*"  Binding="{Binding RepositoryType}" />
+                    <DataGridTextColumn Header="Śćieżka" Width="4*" Binding="{Binding Path}" />
+                    <DataGridTextColumn Header="Status" Width="1*" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="Godzina" Width="1*" Binding="{Binding CheckedDate}" />
                 </DataGrid.Columns>
             </DataGrid>
 

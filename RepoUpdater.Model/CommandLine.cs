@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepoUpdater.Model.Abstraction;
+using System;
 using System.Diagnostics;
 
 namespace RepoUpdater.Model

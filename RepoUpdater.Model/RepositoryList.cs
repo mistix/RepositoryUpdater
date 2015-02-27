@@ -1,22 +1,40 @@
 ﻿using RepoUpdater.Model.Abstraction;
+using RepoUpdater.Model.Factories;
 using System;
 using System.Collections.Generic;
 
 namespace RepoUpdater.Model
 {
-    public class RepositoryList
+    public class RepositoryList : IRepositoryList
     {
+        #region Fields
+
+        private readonly IRepositoryListSerializer _serializer;
         private readonly List<RepositoryUpdaterBase> _repositoryUpdaterStrategies;
 
-        public RepositoryList()
+        #endregion
+
+        #region Constructors
+
+        public RepositoryList(IRepositoryListSerializer serializer)
         {
+            _serializer = serializer;
+
             _repositoryUpdaterStrategies = new List<RepositoryUpdaterBase>();
         }
+
+        #endregion
+
+        #region Properties
 
         public IEnumerable<RepositoryUpdaterBase> Repositories
         {
             get { return _repositoryUpdaterStrategies; }
         }
+
+        #endregion
+
+        #region Methods
 
         public void Add(RepositoryUpdaterBase repository)
         {
@@ -44,5 +62,18 @@ namespace RepoUpdater.Model
         {
             _repositoryUpdaterStrategies.Clear();
         }
+
+        public void Save(string path)
+        {
+            _serializer.Save(_repositoryUpdaterStrategies, path);
+        }
+
+        public void Load(string path)
+        {
+            Clear();
+            _repositoryUpdaterStrategies.AddRange(_serializer.Load(path));
+        }
+
+        #endregion
     }
 }

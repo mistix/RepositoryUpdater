@@ -1,15 +1,21 @@
 ﻿using System;
+using RepoUpdater.Model.Abstraction;
 using TinyMessenger;
 
 namespace RepoUpdater.Model.Strategies
 {
     public class GitTfsRepository : GitRepository
     {
-        protected new const string PullArgument = "--git-dir={0}\\.git --work-tree={0} tfs pull";
+        protected const string PullArgument = "--git-dir={0}\\.git --work-tree={0} tfs pull";
 
         public GitTfsRepository(string path, ICommandLine commandLine, ITinyMessengerHub eventBus)
             : base(path, commandLine, eventBus)
         {
+        }
+
+        public override string Name
+        {
+            get { return "Git-tfs"; }
         }
 
         public override void Update()

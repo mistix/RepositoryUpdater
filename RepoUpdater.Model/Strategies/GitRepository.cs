@@ -9,7 +9,7 @@ namespace RepoUpdater.Model.Strategies
         private const string PullArgument = "--git-dir={0}\\.git --work-tree={0} pull";
 
         public GitRepository(string path, ICommandLine commandLine, ITinyMessengerHub eventBus)
-            : base(path, commandLine, eventBus)
+            : base(path, "Git", commandLine, eventBus)
         {
         }
 

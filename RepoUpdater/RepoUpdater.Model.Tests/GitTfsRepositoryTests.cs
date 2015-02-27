@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.Strategies;
 using System;
 using TinyMessenger;

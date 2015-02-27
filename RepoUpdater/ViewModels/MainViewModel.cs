@@ -1,10 +1,13 @@
 ﻿using Ninject;
+using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.Factories;
 using RepoUpdater.Model.ModelView;
+using RepoUpdater.ViewModels.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 using TinyMessenger;
 
@@ -18,6 +21,7 @@ namespace RepoUpdater.ViewModels
         private readonly ITinyMessengerHub _messageBus;
         private readonly IRepositoryFactory _repositoryFactory;
         private readonly INavigationManager _navigationManager;
+        private readonly IRepositoryList _repositoryList;
 
         private RelayCommand _closeMainWindow;
         private RelayCommand _openNewItemWindow;
@@ -33,7 +37,17 @@ namespace RepoUpdater.ViewModels
 
         #region Properties
 
-        public IEnumerable<RepositoryItem> Repositories { get; set; }
+        public IEnumerable<RepositoryItem> Repositories
+        {
+            get
+            {
+                return _repositoryList.Repositories.Select(item => new RepositoryItem()
+                {
+                    Path = item.RepositoryPath,
+                    RepositoryType = item.Name,
+                });
+            }
+        }
 
         public ICommand OpenNewItemWindow
         {
@@ -56,29 +70,23 @@ namespace RepoUpdater.ViewModels
 
         #region Constructors
 
-        public MainViewModel(IKernel kernel, ITinyMessengerHub messageBus, IRepositoryFactory repositoryFactory,
-            INavigationManager navigationManager)
+        public MainViewModel(
+            IKernel kernel,
+            ITinyMessengerHub messageBus,
+            IRepositoryFactory repositoryFactory,
+            INavigationManager navigationManager,
+            IRepositoryList repositoryList)
         {
             _kernel = kernel;
             _messageBus = messageBus;
             _repositoryFactory = repositoryFactory;
             _navigationManager = navigationManager;
+            _repositoryList = repositoryList;
         }
 
         #endregion
 
         #region Methods
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            VerifyPropertyName(propertyName);
-
-            PropertyChangedEventHandler handler = PropertyChanged;
-
-            if (handler == null) return;
-            var e = new PropertyChangedEventArgs(propertyName);
-            handler(this, e);
-        }
 
         [DebuggerStepThrough]
         public void VerifyPropertyName(string propertyName)
@@ -90,6 +98,17 @@ namespace RepoUpdater.ViewModels
 
         public void Dispose()
         {
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            VerifyPropertyName(propertyName);
+
+            PropertyChangedEventHandler handler = PropertyChanged;
+
+            if (handler == null) return;
+            var e = new PropertyChangedEventArgs(propertyName);
+            handler(this, e);
         }
 
         #endregion

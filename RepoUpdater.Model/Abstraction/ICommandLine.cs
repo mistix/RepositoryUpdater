@@ -1,4 +1,4 @@
-﻿namespace RepoUpdater.Model
+﻿namespace RepoUpdater.Model.Abstraction
 {
     public interface ICommandLine
     {
