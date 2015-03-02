@@ -4,8 +4,6 @@ using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.Factories;
 using RepoUpdater.ViewModels;
 using RepoUpdater.ViewModels.Abstraction;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using TinyMessenger;
 
@@ -45,18 +43,6 @@ namespace RepoUpdater
             _container.Get<IRepositoryList>().Load("C:\\somepath.xml");
             Current.MainWindow = _container.Get<MainWindow>();
             Current.MainWindow.Show();
-        }
-    }
-
-    internal class RepositoryXMLSerializer : IRepositoryListSerializer
-    {
-        public void Save(IEnumerable<RepositoryUpdaterBase> repositories, string path)
-        {
-        }
-
-        public IEnumerable<RepositoryUpdaterBase> Load(string path)
-        {
-            return Enumerable.Empty<RepositoryUpdaterBase>();
         }
     }
 }

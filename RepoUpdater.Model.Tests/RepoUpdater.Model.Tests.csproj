@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryFactoryTests.cs" />
     <Compile Include="RepositoryListTests.cs" />
+    <Compile Include="RepositoryXMLSerializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -67,6 +68,9 @@
       <Project>{73e17e80-da7a-4880-852a-ef0b1c35922c}</Project>
       <Name>RepoUpdater</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\TestData.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

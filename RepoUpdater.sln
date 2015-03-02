@@ -5,11 +5,11 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoUpdater", "RepoUpdater.csproj", "{73E17E80-DA7A-4880-852A-EF0B1C35922C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoUpdater.Model", "..\RepoUpdater.Model\RepoUpdater.Model.csproj", "{E95525A4-0091-4294-B185-BF45D977C04F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoUpdater.Model", "RepoUpdater.Model\RepoUpdater.Model.csproj", "{E95525A4-0091-4294-B185-BF45D977C04F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoUpdater.Model.Tests", "RepoUpdater.Model.Tests\RepoUpdater.Model.Tests.csproj", "{962CE358-07E1-40CA-8E8E-C229A7211447}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRunner", "..\ConsoleRunner\ConsoleRunner.csproj", "{1F7E8082-3810-4079-AE04-6D0A084C921C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRunner", "ConsoleRunner\ConsoleRunner.csproj", "{1F7E8082-3810-4079-AE04-6D0A084C921C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

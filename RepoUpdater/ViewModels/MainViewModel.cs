@@ -1,5 +1,4 @@
-﻿using Ninject;
-using RepoUpdater.Model.Abstraction;
+﻿using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.Factories;
 using RepoUpdater.Model.ModelView;
 using RepoUpdater.ViewModels.Abstraction;
@@ -17,7 +16,6 @@ namespace RepoUpdater.ViewModels
     {
         #region Fields
 
-        private readonly IKernel _kernel;
         private readonly ITinyMessengerHub _messageBus;
         private readonly IRepositoryFactory _repositoryFactory;
         private readonly INavigationManager _navigationManager;
@@ -71,13 +69,11 @@ namespace RepoUpdater.ViewModels
         #region Constructors
 
         public MainViewModel(
-            IKernel kernel,
             ITinyMessengerHub messageBus,
             IRepositoryFactory repositoryFactory,
             INavigationManager navigationManager,
             IRepositoryList repositoryList)
         {
-            _kernel = kernel;
             _messageBus = messageBus;
             _repositoryFactory = repositoryFactory;
             _navigationManager = navigationManager;
