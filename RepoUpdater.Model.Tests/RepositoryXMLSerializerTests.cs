@@ -5,6 +5,7 @@ using RepoUpdater.Model.Strategies;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TinyMessenger;
 using Xunit;
 
 namespace RepoUpdater.Model.Tests
@@ -17,13 +18,14 @@ namespace RepoUpdater.Model.Tests
 
         #endregion
 
-
         #region Constructors
 
         public RepositoryXMLSerializerTests()
         {
-            var fakeFactory = Substitute.For<IRepositoryFactory>();
-            _target = new RepositoryXMLSerializer(fakeFactory);
+            var fakeBus = Substitute.For<ITinyMessengerHub>();
+            var repositoryFactory = new RepositoryFactory(fakeBus);
+
+            _target = new RepositoryXMLSerializer(repositoryFactory);
         }
 
         #endregion

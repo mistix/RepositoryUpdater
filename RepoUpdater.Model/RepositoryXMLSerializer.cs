@@ -1,8 +1,9 @@
 using RepoUpdater.Model.Abstraction;
+using RepoUpdater.Model.Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using RepoUpdater.Model.Factories;
 
 namespace RepoUpdater.Model
 {
@@ -31,15 +32,26 @@ namespace RepoUpdater.Model
         {
             var list = new List<RepositoryUpdaterBase>();
 
-            var document = new XmlDocument();
-            document.Load(path);
-
-            var repositories = document.SelectNodes("repositories");
-            if (repositories == null)
-                return Enumerable.Empty<RepositoryUpdaterBase>();
-
-            foreach (var node in repositories)
+            try
             {
+                var document = new XmlDocument();
+                document.Load(path);
+
+                var repositories = document.SelectNodes("repositories/repository");
+                if (repositories == null)
+                    return Enumerable.Empty<RepositoryUpdaterBase>();
+
+                foreach (XmlNode node in repositories)
+                {
+                    string type = node.ChildNodes.Item(0).InnerText;
+                    string repositoryPath = node.ChildNodes.Item(1).InnerText;
+
+                    list.Add(_repositoryFactory.Create(type, repositoryPath));
+                }
+            }
+            catch (Exception exception)
+            {
+                // TODO logger in feature
             }
 
             return list;

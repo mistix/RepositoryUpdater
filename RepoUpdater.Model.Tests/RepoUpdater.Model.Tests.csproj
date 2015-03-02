@@ -60,7 +60,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RepoUpdater.Model\RepoUpdater.Model.csproj">
+    <ProjectReference Include="..\RepoUpdater.Model\RepoUpdater.Model.csproj">
       <Project>{e95525a4-0091-4294-b185-bf45d977c04f}</Project>
       <Name>RepoUpdater.Model</Name>
     </ProjectReference>
@@ -70,7 +70,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\TestData.xml" />
+    <Content Include="TestData\TestData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

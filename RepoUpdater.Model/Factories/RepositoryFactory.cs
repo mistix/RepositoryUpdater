@@ -7,12 +7,22 @@ namespace RepoUpdater.Model.Factories
 {
     public class RepositoryFactory : IRepositoryFactory
     {
-        private ITinyMessengerHub _eventBus;
+        #region Fields
+
+        private readonly ITinyMessengerHub _eventBus;
+
+        #endregion
+
+        #region Constructors
 
         public RepositoryFactory(ITinyMessengerHub eventBus)
         {
             _eventBus = eventBus;
         }
+
+        #endregion
+
+        #region Methods
 
         public RepositoryUpdaterBase Create(RepositoryType repositoryType, string repositoryPath)
         {
@@ -30,5 +40,14 @@ namespace RepoUpdater.Model.Factories
                     throw new ArgumentOutOfRangeException("repositoryType");
             }
         }
+
+        public RepositoryUpdaterBase Create(string repositoryType, string repositoryPath)
+        {
+            RepositoryType type = (RepositoryType)Enum.Parse(typeof(RepositoryType), repositoryType, true);
+
+            return Create(type, repositoryPath);
+        }
+
+        #endregion
     }
 }
