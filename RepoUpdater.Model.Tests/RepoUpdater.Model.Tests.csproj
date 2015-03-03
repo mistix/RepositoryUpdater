@@ -64,12 +64,18 @@
       <Project>{e95525a4-0091-4294-b185-bf45d977c04f}</Project>
       <Name>RepoUpdater.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RepoUpdater.csproj">
+    <ProjectReference Include="..\RepoUpdater\RepoUpdater.csproj">
       <Project>{73e17e80-da7a-4880-852a-ef0b1c35922c}</Project>
       <Name>RepoUpdater</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestData\TestDataExistingData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TestData-singleElement.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\TestData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

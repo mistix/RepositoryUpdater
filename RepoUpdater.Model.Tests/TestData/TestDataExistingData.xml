@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<repositories>
+  <repository>
+    <type>Git</type>
+    <path>c:\git\git</path>
+  </repository>
+  <repository>
+    <type>TFS</type>
+    <path>c:\git\tfs</path>
+  </repository>
+</repositories>

@@ -1,5 +1,5 @@
-﻿using System;
-using RepoUpdater.Model.Abstraction;
+﻿using RepoUpdater.Model.Abstraction;
+using System;
 using TinyMessenger;
 
 namespace RepoUpdater.Model.Strategies
@@ -15,7 +15,7 @@ namespace RepoUpdater.Model.Strategies
 
         public override string Name
         {
-            get { return "Git-tfs"; }
+            get { return "GitTfs"; }
         }
 
         public override void Update()

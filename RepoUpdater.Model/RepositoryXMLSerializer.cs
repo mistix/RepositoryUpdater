@@ -2,6 +2,7 @@ using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.Factories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 
@@ -26,11 +27,54 @@ namespace RepoUpdater.Model
 
         public void Save(IEnumerable<RepositoryUpdaterBase> repositories, string path)
         {
+            if (repositories == null || !repositories.Any())
+                return;
+
+            try
+            {
+                var document = new XmlDocument();
+
+                if (File.Exists(path))
+                {
+                    document.Load(path);
+                }
+                else
+                {
+                    XmlDeclaration xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+                    XmlElement root = document.DocumentElement;
+                    document.InsertBefore(xmlDeclaration, root);
+                }
+
+                XmlNode repositoriesNode = document.SelectSingleNode("repositories") ?? document.CreateElement("repositories");
+                foreach (RepositoryUpdaterBase item in repositories)
+                {
+                    var repositoryNode = document.CreateElement("repository");
+                    var typeNode = document.CreateElement("type");
+                    typeNode.InnerText = item.Name;
+
+                    var pathNode = document.CreateElement("path");
+                    pathNode.InnerText = item.RepositoryPath;
+
+                    repositoryNode.AppendChild(typeNode);
+                    repositoryNode.AppendChild(pathNode);
+                    repositoriesNode.AppendChild(repositoryNode);
+                }
+
+                document.AppendChild(repositoriesNode);
+
+                document.Save(path);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public IEnumerable<RepositoryUpdaterBase> Load(string path)
         {
             var list = new List<RepositoryUpdaterBase>();
+            if (!File.Exists(path))
+                throw new ArgumentException("File not exists");
 
             try
             {
@@ -51,7 +95,7 @@ namespace RepoUpdater.Model
             }
             catch (Exception exception)
             {
-                // TODO logger in feature
+                throw;
             }
 
             return list;
