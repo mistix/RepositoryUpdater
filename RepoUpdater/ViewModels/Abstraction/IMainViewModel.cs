@@ -1,7 +1,7 @@
+using RepoUpdater.Model.ModelView;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using RepoUpdater.Model.ModelView;
 
 namespace RepoUpdater.ViewModels.Abstraction
 {
@@ -11,6 +11,8 @@ namespace RepoUpdater.ViewModels.Abstraction
 
         ICommand OpenNewItemWindow { get; }
         ICommand CloseMainWindow { get; }
+        ICommand OpenSettingsWindow { get; }
+        ICommand OpenInformationWindow { get; }
 
         event EventHandler CloseWindow;
     }

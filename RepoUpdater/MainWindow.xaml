@@ -8,20 +8,15 @@
         <StackPanel>
             <Menu IsMainMenu="True" Height="24" VerticalAlignment="Top">
                 <MenuItem Header="_File" >
-                    <MenuItem Header="_New..." Command="{Binding Path=OpenNewItemWindow}" />
-                    <Separator />
-                    <MenuItem Header="_Open..." />
-                    <Separator />
-                    <MenuItem Header="_Save" />
-                    <MenuItem Header="_Save As..." />
+                    <MenuItem Header="_Add..." Command="{Binding Path=OpenNewItemWindow}" />
                     <Separator />
                     <MenuItem Header="_Exit" Command="{Binding Path=CloseMainWindow}"/>
                 </MenuItem>
-                <MenuItem Header="_Settings" />
-                <MenuItem Header="_About" />
+                <MenuItem Header="_Settings" Command="{Binding Path=ShowSettingsWindow}"/>
+                <MenuItem Header="_About" Command="{Binding Path=ShowAboutWindow}"/>
             </Menu>
 
-            <DataGrid ItemsSource="{Binding Repositories}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid ItemsSource="{Binding Repositories}"  AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Typ" Width="1*"  Binding="{Binding RepositoryType}" />
                     <DataGridTextColumn Header="Śćieżka" Width="4*" Binding="{Binding Path}" />

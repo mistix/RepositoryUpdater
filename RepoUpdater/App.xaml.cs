@@ -1,9 +1,11 @@
 ﻿using Ninject;
+using RepoUpdater.Abstract;
 using RepoUpdater.Model;
 using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.Factories;
 using RepoUpdater.ViewModels;
 using RepoUpdater.ViewModels.Abstraction;
+using System.Configuration;
 using System.Windows;
 using TinyMessenger;
 
@@ -14,7 +16,21 @@ namespace RepoUpdater
     /// </summary>
     public partial class App : Application
     {
+        #region Constants
+
+        private const string DefaultConfigurationFile = "DefaultConfigurationFile";
+        private const string DefaultGitExecPath = "DefaultGitExecPath";
+        private const string DefaultTfsExecPath = "DefaultTfsExecPath";
+
+        #endregion
+
+        #region Fields
+
         private IKernel _container;
+
+        #endregion
+
+        #region Methods
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -40,9 +56,14 @@ namespace RepoUpdater
 
         private void ComposeObjects()
         {
-            _container.Get<IRepositoryList>().Load("C:\\somepath.xml");
+            _container.Get<IRepositoryList>().Load(ConfigurationManager.AppSettings[DefaultConfigurationFile]);
+            Settings.GitPath = ConfigurationManager.AppSettings[DefaultGitExecPath];
+            Settings.TFSPath = ConfigurationManager.AppSettings[DefaultTfsExecPath];
+
             Current.MainWindow = _container.Get<MainWindow>();
             Current.MainWindow.Show();
         }
+
+        #endregion
     }
 }

@@ -1,5 +1,4 @@
 ﻿using RepoUpdater.Model.Abstraction;
-using RepoUpdater.Model.Factories;
 using System;
 using System.Collections.Generic;
 
@@ -19,7 +18,6 @@ namespace RepoUpdater.Model
         public RepositoryList(IRepositoryListSerializer serializer)
         {
             _serializer = serializer;
-
             _repositoryUpdaterStrategies = new List<RepositoryUpdaterBase>();
         }
 

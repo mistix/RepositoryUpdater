@@ -1,5 +1,5 @@
-﻿using RepoUpdater.Model.Abstraction;
-using RepoUpdater.Model.Factories;
+﻿using RepoUpdater.Abstract;
+using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.ModelView;
 using RepoUpdater.ViewModels.Abstraction;
 using System;
@@ -17,12 +17,13 @@ namespace RepoUpdater.ViewModels
         #region Fields
 
         private readonly ITinyMessengerHub _messageBus;
-        private readonly IRepositoryFactory _repositoryFactory;
         private readonly INavigationManager _navigationManager;
         private readonly IRepositoryList _repositoryList;
 
         private RelayCommand _closeMainWindow;
         private RelayCommand _openNewItemWindow;
+        private RelayCommand _openSettingsWindow;
+        private RelayCommand _openAboutWindow;
 
         #endregion
 
@@ -64,18 +65,34 @@ namespace RepoUpdater.ViewModels
             }
         }
 
+        public ICommand OpenSettingsWindow
+        {
+            get
+            {
+                return _openSettingsWindow ??
+                       (_openSettingsWindow = new RelayCommand(param => _navigationManager.OpenSettingsWindow()));
+            }
+        }
+
+        public ICommand OpenInformationWindow
+        {
+            get
+            {
+                return _openAboutWindow ??
+                       (_openAboutWindow = new RelayCommand(param => _navigationManager.OpenAboutInformations()));
+            }
+        }
+
         #endregion
 
         #region Constructors
 
         public MainViewModel(
             ITinyMessengerHub messageBus,
-            IRepositoryFactory repositoryFactory,
             INavigationManager navigationManager,
             IRepositoryList repositoryList)
         {
             _messageBus = messageBus;
-            _repositoryFactory = repositoryFactory;
             _navigationManager = navigationManager;
             _repositoryList = repositoryList;
         }

@@ -2,7 +2,6 @@
 using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.Factories;
 using RepoUpdater.Model.Strategies;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -72,7 +71,9 @@ namespace RepoUpdater.Model.Tests
         [Fact]
         public void LoadData_PathToFileIsInvalid()
         {
-            Assert.Throws<ArgumentException>(() => _target.Load("TestData\\TestData-singleElementkkk.xml"));
+            IEnumerable<RepositoryUpdaterBase> repositories = _target.Load("TestData\\TestData-singleElementkkk.xml");
+
+            Assert.Empty(repositories);
         }
 
         [Fact]

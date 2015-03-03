@@ -74,7 +74,7 @@ namespace RepoUpdater.Model
         {
             var list = new List<RepositoryUpdaterBase>();
             if (!File.Exists(path))
-                throw new ArgumentException("File not exists");
+                return Enumerable.Empty<RepositoryUpdaterBase>();
 
             try
             {
