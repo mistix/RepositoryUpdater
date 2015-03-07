@@ -18,14 +18,15 @@ namespace RepoUpdater.Model.Tests
             var command = Substitute.For<ICommandLine>();
             var eventBus = Substitute.For<ITinyMessengerHub>();
             var serializer = Substitute.For<IRepositoryListSerializer>();
+            var applicationSettings = Substitute.For<IApplicationSettings>();
 
-            _target = new RepositoryList(serializer);
+            _target = new RepositoryList(serializer, applicationSettings);
 
             _repositories = new List<RepositoryUpdaterBase>()
             {
                 Substitute.For<RepositoryUpdaterBase>(Path, "GIT", command, eventBus),
                 Substitute.For<RepositoryUpdaterBase>(Path, "Tfs", command, eventBus),
-                Substitute.For<RepositoryUpdaterBase>(Path, "FitTfs", command, eventBus)
+                Substitute.For<RepositoryUpdaterBase>(Path, "GitTfs", command, eventBus)
             };
         }
 

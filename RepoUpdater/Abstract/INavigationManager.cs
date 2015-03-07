@@ -1,3 +1,4 @@
+
 namespace RepoUpdater.Abstract
 {
     public interface INavigationManager

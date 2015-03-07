@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using RepoUpdater.ViewModels.Abstraction;
+using System.Windows;
 
 namespace RepoUpdater
 {
@@ -7,12 +8,12 @@ namespace RepoUpdater
     /// </summary>
     public partial class AddNewItem : Window
     {
-        private readonly INavigationManager _navigationManager;
-
-        public AddNewItem(INavigationManager navigationManager)
+        public AddNewItem(IAddNewItemViewModel viewModel)
         {
-            _navigationManager = navigationManager;
             InitializeComponent();
+
+            DataContext = viewModel;
+            viewModel.CloseWindow += (sender, arguments) => Hide();
         }
     }
 }

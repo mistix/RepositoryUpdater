@@ -11,7 +11,7 @@ namespace RepoUpdater.Model.Abstraction
         void UpdateAll();
         void Clear();
 
-        void Save(string path);
-        void Load(string path);
+        void Save();
+        void Load();
     }
 }

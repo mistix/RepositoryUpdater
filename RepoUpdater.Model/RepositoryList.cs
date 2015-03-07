@@ -9,15 +9,17 @@ namespace RepoUpdater.Model
         #region Fields
 
         private readonly IRepositoryListSerializer _serializer;
+        private readonly IApplicationSettings _applicationSettings;
         private readonly List<RepositoryUpdaterBase> _repositoryUpdaterStrategies;
 
         #endregion
 
         #region Constructors
 
-        public RepositoryList(IRepositoryListSerializer serializer)
+        public RepositoryList(IRepositoryListSerializer serializer, IApplicationSettings applicationSettings)
         {
             _serializer = serializer;
+            _applicationSettings = applicationSettings;
             _repositoryUpdaterStrategies = new List<RepositoryUpdaterBase>();
         }
 
@@ -61,15 +63,15 @@ namespace RepoUpdater.Model
             _repositoryUpdaterStrategies.Clear();
         }
 
-        public void Save(string path)
+        public void Save()
         {
-            _serializer.Save(_repositoryUpdaterStrategies, path);
+            _serializer.Save(_repositoryUpdaterStrategies, _applicationSettings.DefaultConfigFile);
         }
 
-        public void Load(string path)
+        public void Load()
         {
             Clear();
-            _repositoryUpdaterStrategies.AddRange(_serializer.Load(path));
+            _repositoryUpdaterStrategies.AddRange(_serializer.Load(_applicationSettings.DefaultConfigFile));
         }
 
         #endregion

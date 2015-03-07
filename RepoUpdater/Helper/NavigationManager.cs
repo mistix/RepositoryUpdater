@@ -1,6 +1,7 @@
-﻿using Ninject;
+using Ninject;
+using RepoUpdater.Abstract;
 
-namespace RepoUpdater
+namespace RepoUpdater.Helper
 {
     public class NavigationManager : INavigationManager
     {
@@ -16,7 +17,17 @@ namespace RepoUpdater
             var window = _ninjectKernel.Get<AddNewItem>();
 
             if (!window.IsVisible)
-                window.Show();
+                window.ShowDialog();
+        }
+
+        public void OpenSettingsWindow()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OpenAboutInformations()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
