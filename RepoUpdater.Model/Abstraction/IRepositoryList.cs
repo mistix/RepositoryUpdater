@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace RepoUpdater.Model.Abstraction
 {
     public interface IRepositoryList
     {
-        IEnumerable<RepositoryUpdaterBase> Repositories { get; }
+        ObservableCollection<RepositoryUpdaterBase> Repositories { get; }
 
         void Add(RepositoryUpdaterBase repository);
         void Remove(RepositoryUpdaterBase repository);

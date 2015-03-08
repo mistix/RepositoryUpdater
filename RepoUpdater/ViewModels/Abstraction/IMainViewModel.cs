@@ -1,13 +1,13 @@
-using RepoUpdater.Model.ModelView;
+using RepoUpdater.Model.Abstraction;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace RepoUpdater.ViewModels.Abstraction
 {
     public interface IMainViewModel
     {
-        IEnumerable<RepositoryItem> Repositories { get; }
+        ObservableCollection<RepositoryUpdaterBase> Repositories { get; }
 
         ICommand OpenNewItemWindow { get; }
         ICommand CloseMainWindow { get; }

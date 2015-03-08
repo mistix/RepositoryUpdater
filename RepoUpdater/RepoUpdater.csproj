@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Abstract\INavigationManager.cs" />
+    <Compile Include="Converters\RepositoryItemConverter.cs" />
     <Compile Include="Helper\NavigationManager.cs" />
     <Compile Include="RelayCommand.cs" />
     <Page Include="AddNewItem.xaml">

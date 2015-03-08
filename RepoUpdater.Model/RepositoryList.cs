@@ -1,6 +1,6 @@
 ﻿using RepoUpdater.Model.Abstraction;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace RepoUpdater.Model
 {
@@ -10,7 +10,7 @@ namespace RepoUpdater.Model
 
         private readonly IRepositoryListSerializer _serializer;
         private readonly IApplicationSettings _applicationSettings;
-        private readonly List<RepositoryUpdaterBase> _repositoryUpdaterStrategies;
+        private readonly ObservableCollection<RepositoryUpdaterBase> _repositoryUpdaterStrategies;
 
         #endregion
 
@@ -20,14 +20,14 @@ namespace RepoUpdater.Model
         {
             _serializer = serializer;
             _applicationSettings = applicationSettings;
-            _repositoryUpdaterStrategies = new List<RepositoryUpdaterBase>();
+            _repositoryUpdaterStrategies = new ObservableCollection<RepositoryUpdaterBase>();
         }
 
         #endregion
 
         #region Properties
 
-        public IEnumerable<RepositoryUpdaterBase> Repositories
+        public ObservableCollection<RepositoryUpdaterBase> Repositories
         {
             get { return _repositoryUpdaterStrategies; }
         }
@@ -55,7 +55,8 @@ namespace RepoUpdater.Model
 
         public void UpdateAll()
         {
-            _repositoryUpdaterStrategies.ForEach(item => item.Update());
+            foreach (RepositoryUpdaterBase item in _repositoryUpdaterStrategies)
+                item.Update();
         }
 
         public void Clear()
@@ -71,7 +72,10 @@ namespace RepoUpdater.Model
         public void Load()
         {
             Clear();
-            _repositoryUpdaterStrategies.AddRange(_serializer.Load(_applicationSettings.DefaultConfigFile));
+            var storedRepositories = _serializer.Load(_applicationSettings.DefaultConfigFile);
+            foreach (RepositoryUpdaterBase item in storedRepositories)
+                _repositoryUpdaterStrategies.Add(item);
+
         }
 
         #endregion

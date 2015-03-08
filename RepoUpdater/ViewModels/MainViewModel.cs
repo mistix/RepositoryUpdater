@@ -1,12 +1,10 @@
 ﻿using RepoUpdater.Abstract;
 using RepoUpdater.Model.Abstraction;
-using RepoUpdater.Model.ModelView;
 using RepoUpdater.ViewModels.Abstraction;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Input;
 using TinyMessenger;
 
@@ -36,16 +34,9 @@ namespace RepoUpdater.ViewModels
 
         #region Properties
 
-        public IEnumerable<RepositoryItem> Repositories
+        public ObservableCollection<RepositoryUpdaterBase> Repositories
         {
-            get
-            {
-                return _repositoryList.Repositories.Select(item => new RepositoryItem()
-                {
-                    Path = item.RepositoryPath,
-                    RepositoryType = item.Name,
-                });
-            }
+            get { return _repositoryList.Repositories; }
         }
 
         public ICommand OpenNewItemWindow

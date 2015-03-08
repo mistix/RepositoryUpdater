@@ -5,6 +5,7 @@ using RepoUpdater.ViewModels.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 
@@ -86,6 +87,25 @@ namespace RepoUpdater.ViewModels
             _repositoryList.Add(repository);
 
             CloseWindow.Invoke(this, null);
+        }
+
+        [DebuggerStepThrough]
+        public void VerifyPropertyName(string propertyName)
+        {
+            if (TypeDescriptor.GetProperties(this)[propertyName] != null) return;
+            string msg = "Invalid property name: " + propertyName;
+            throw new Exception(msg);
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            VerifyPropertyName(propertyName);
+
+            PropertyChangedEventHandler handler = PropertyChanged;
+
+            if (handler == null) return;
+            var e = new PropertyChangedEventArgs(propertyName);
+            handler(this, e);
         }
 
         #endregion
