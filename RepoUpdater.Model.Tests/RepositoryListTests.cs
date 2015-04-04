@@ -1,9 +1,11 @@
 ﻿using NSubstitute;
 using RepoUpdater.Model.Abstraction;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TinyMessenger;
 using Xunit;
+using Xunit.Extensions;
 
 namespace RepoUpdater.Model.Tests
 {
@@ -67,11 +69,11 @@ namespace RepoUpdater.Model.Tests
             _target.Add(_repositories[0]);
             _target.Add(_repositories[1]);
 
-            Assert.Equal(2, _target.Repositories.Count());
+            Assert.Equal(2, _target.Repositories.Count);
 
             _target.Clear();
 
-            Assert.Equal(0, _target.Repositories.Count());
+            Assert.Equal(0, _target.Repositories.Count);
         }
 
         [Fact]
@@ -86,6 +88,30 @@ namespace RepoUpdater.Model.Tests
             _repositories[0].Received().Update();
             _repositories[1].Received().Update();
             _repositories[2].Received().Update();
+        }
+
+        [Fact]
+        public void Remove_ShouldRemoveItemAtIndex()
+        {
+
+            _target.Add(_repositories[0]);
+            _target.Add(_repositories[1]);
+            _target.Add(_repositories[2]);
+
+            Assert.Equal(3, _target.Repositories.Count);
+
+            _target.Remove(2);
+
+            Assert.Equal(2, _target.Repositories.Count);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(10)]
+        [InlineData(-10)]
+        public void Remove_ShouldThrowArgumentOfOfRangeException(int index)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => _target.Remove(index));
         }
     }
 }

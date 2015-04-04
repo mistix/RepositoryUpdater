@@ -1,13 +1,10 @@
 ﻿using RepoUpdater.Model.Abstraction;
-using RepoUpdater.Model.Annotations;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace RepoUpdater.Model
 {
-    public class RepositoryList : IRepositoryList, INotifyPropertyChanged
+    public class RepositoryList : IRepositoryList
     {
         #region Fields
 
@@ -56,6 +53,14 @@ namespace RepoUpdater.Model
                 _repositoryUpdaterStrategies.Remove(repository);
         }
 
+        public void Remove(int index)
+        {
+            if (index < 0 || index > _repositoryUpdaterStrategies.Count)
+                throw new ArgumentOutOfRangeException("index");
+
+            _repositoryUpdaterStrategies.RemoveAt(index);
+        }
+
         public void UpdateAll()
         {
             foreach (RepositoryUpdaterBase item in _repositoryUpdaterStrategies)
@@ -79,15 +84,6 @@ namespace RepoUpdater.Model
             foreach (RepositoryUpdaterBase item in storedRepositories)
                 _repositoryUpdaterStrategies.Add(item);
 
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

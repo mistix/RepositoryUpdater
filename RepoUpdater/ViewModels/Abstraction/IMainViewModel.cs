@@ -15,8 +15,11 @@ namespace RepoUpdater.ViewModels.Abstraction
         ICommand CloseMainWindow { get; }
         ICommand AddRepository { get; }
         ICommand RemoveRepository { get; }
+        ICommand StartUpdateRepositories { get; }
+        ICommand StopUpdateRepositories { get; }
 
         IEnumerable<string> RepositoryTypes { get; }
+        int SelectedItemIndex { get; set; }
         string SelectedRepository { get; set; }
         string FolderPath { get; set; }
 

@@ -24,11 +24,15 @@
                     <Separator />
                     <MenuItem Header="_Exit" Command="{Binding Path=CloseMainWindow}"/>
                 </MenuItem>
-                <MenuItem Header="_Settings" Command="{Binding Path=ShowSettingsWindow}"/>
+                <MenuItem Header="_Settings" Command="{Binding Path=ShowSettingsWindow}">
+                    <MenuItem Header="_Start update" Command="{Binding Path=StartUpdateRepositories}" />
+                    <Separator />
+                    <MenuItem Header="_Stop update" Command="{Binding Path=StopUpdateRepositories}"/>
+                </MenuItem>
                 <MenuItem Header="_About" Command="{Binding Path=ShowAboutWindow}"/>
             </Menu>
 
-            <DataGrid ItemsSource="{Binding Repositories, Converter={StaticResource RepositoryItemConverter}, Mode=OneWay}" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
+            <DataGrid ItemsSource="{Binding Repositories, Converter={StaticResource RepositoryItemConverter}, Mode=OneWay}" SelectedIndex="{Binding SelectedItemIndex}" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Typ" Width="1*"  Binding="{Binding RepositoryType}" />
                     <DataGridTextColumn Header="Śćieżka" Width="4*" Binding="{Binding Path}" />

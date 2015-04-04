@@ -1,5 +1,6 @@
 ﻿using RepoUpdater.Model;
 using RepoUpdater.Model.Abstraction;
+using RepoUpdater.Model.Factories;
 using RepoUpdater.ViewModels.Abstraction;
 using System;
 using System.Collections.Generic;
@@ -12,22 +13,24 @@ using TinyMessenger;
 
 namespace RepoUpdater.ViewModels
 {
-    public class MainViewModel : IMainViewModel, INotifyPropertyChanged, IDisposable
+    public class MainViewModel : IMainViewModel, INotifyPropertyChanged
     {
         #region Fields
 
         private readonly ITinyMessengerHub _messageBus;
         private readonly IRepositoryList _repositoryList;
+        private readonly IRepositoryFactory _repositoryFactory;
 
         private RelayCommand _closeMainWindow;
         private RelayCommand _addRepository;
         private RelayCommand _removeRepository;
+        private RelayCommand _startUpdateRepositories;
+        private RelayCommand _stopUpdateRepositories;
 
         #endregion
 
         #region Events
 
-        public string FolderPath { get; set; }
         public event EventHandler CloseWindow;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,20 +38,16 @@ namespace RepoUpdater.ViewModels
 
         #region Properties
 
+        public string FolderPath { get; set; }
+
         public ObservableCollection<RepositoryUpdaterBase> Repositories
         {
-            get
-            {
-                return _repositoryList.Repositories;
-            }
+            get { return _repositoryList.Repositories; }
         }
 
         public ICommand CloseMainWindow
         {
-            get
-            {
-                return _closeMainWindow ?? (_closeMainWindow = new RelayCommand(param => CloseWindow.Invoke(this, null)));
-            }
+            get { return _closeMainWindow ?? (_closeMainWindow = new RelayCommand(param => CloseWindow.Invoke(this, null))); }
         }
 
         public ICommand AddRepository
@@ -61,6 +60,16 @@ namespace RepoUpdater.ViewModels
             get { return _removeRepository ?? (_removeRepository = new RelayCommand(parma => RemoveExistingRepository())); }
         }
 
+        public ICommand StartUpdateRepositories
+        {
+            get { return _startUpdateRepositories ?? (_startUpdateRepositories = new RelayCommand(param => RunRepositoryUpdater())) }
+        }
+
+        public ICommand StopUpdateRepositories
+        {
+            get { _stopUpdateRepositories ?? (_stopUpdateRepositories = new RelayCommand(param => StopRepositoryUpdate()))}
+        }
+
         public IEnumerable<string> RepositoryTypes
         {
             get
@@ -70,21 +79,49 @@ namespace RepoUpdater.ViewModels
             }
         }
 
+        public int SelectedItemIndex { get; set; }
+
         public string SelectedRepository { get; set; }
 
         #endregion
 
         #region Private Methods
 
-        private void RemoveExistingRepository()
+        private void StopRepositoryUpdate()
         {
             throw new NotImplementedException();
+        }
+
+        private void RunRepositoryUpdater()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RemoveExistingRepository()
+        {
+            if (SelectedItemIndex < 0)
+                return;
+
+            _repositoryList.Remove(SelectedItemIndex);
+            OnPropertyChanged("Repositories");
         }
 
 
         private void AddNewRepository()
         {
-            throw new NotImplementedException();
+            if (_repositoryList.Repositories.Any(item => item.RepositoryPath == FolderPath))
+                return;
+
+            RepositoryType repositoryType = RepositoryType.Unknown;
+            bool parseSuccess = Enum.TryParse(SelectedRepository, true, out repositoryType);
+
+            if (!parseSuccess)
+                return;
+
+            var repository = _repositoryFactory.Create(repositoryType, FolderPath);
+            _repositoryList.Add(repository);
+
+            OnPropertyChanged("Repositories");
         }
 
         #endregion
@@ -92,12 +129,11 @@ namespace RepoUpdater.ViewModels
 
         #region Constructors
 
-        public MainViewModel(
-            ITinyMessengerHub messageBus,
-            IRepositoryList repositoryList)
+        public MainViewModel(ITinyMessengerHub messageBus, IRepositoryList repositoryList, IRepositoryFactory repositoryFactory)
         {
             _messageBus = messageBus;
             _repositoryList = repositoryList;
+            _repositoryFactory = repositoryFactory;
         }
 
         #endregion
@@ -110,10 +146,6 @@ namespace RepoUpdater.ViewModels
             if (TypeDescriptor.GetProperties(this)[propertyName] != null) return;
             string msg = "Invalid property name: " + propertyName;
             throw new Exception(msg);
-        }
-
-        public void Dispose()
-        {
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
