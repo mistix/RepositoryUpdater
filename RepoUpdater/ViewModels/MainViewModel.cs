@@ -62,12 +62,12 @@ namespace RepoUpdater.ViewModels
 
         public ICommand StartUpdateRepositories
         {
-            get { return _startUpdateRepositories ?? (_startUpdateRepositories = new RelayCommand(param => RunRepositoryUpdater())) }
+            get { return _startUpdateRepositories ?? (_startUpdateRepositories = new RelayCommand(param => RunRepositoryUpdater())); }
         }
 
         public ICommand StopUpdateRepositories
         {
-            get { _stopUpdateRepositories ?? (_stopUpdateRepositories = new RelayCommand(param => StopRepositoryUpdate()))}
+            get { return _stopUpdateRepositories ?? (_stopUpdateRepositories = new RelayCommand(param => StopRepositoryUpdate())); }
         }
 
         public IEnumerable<string> RepositoryTypes
