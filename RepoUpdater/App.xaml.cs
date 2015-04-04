@@ -36,15 +36,17 @@ namespace RepoUpdater
         {
             _container = new StandardKernel();
 
-            _container.Bind<IMainViewModel>().To<MainViewModel>().InTransientScope();
-            _container.Bind<INavigationManager>().To<NavigationManager>().InTransientScope();
-            _container.Bind<IRepositoryFactory>().To<RepositoryFactory>().InTransientScope();
-            _container.Bind<ITinyMessengerHub>().To<TinyMessengerHub>().InTransientScope();
-            _container.Bind<IRepositoryList>().To<RepositoryList>().InSingletonScope();
+            _container.Bind<IMainViewModel>().To<MainViewModel>();
+            _container.Bind<INavigationManager>().To<NavigationManager>();
+            _container.Bind<IRepositoryFactory>().To<RepositoryFactory>();
+            _container.Bind<ITinyMessengerHub>().To<TinyMessengerHub>();
             _container.Bind<IApplicationSettings>().To<ApplicationSettings>();
             _container.Bind<IRepositoryListSerializer>().To<RepositoryXMLSerializer>();
             _container.Bind<IAddNewItemViewModel>().To<AddNewItemViewModel>();
             _container.Bind<IDispatcherTimer>().To<DispatcherTimerTimerRepository>();
+            _container.Bind<IRepositoryUpdater>().To<RepositoryUpdater>();
+
+            _container.Bind<IRepositoryList>().To<RepositoryList>().InSingletonScope();
         }
 
         private void ComposeObjects()

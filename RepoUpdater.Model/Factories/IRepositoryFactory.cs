@@ -4,7 +4,7 @@ namespace RepoUpdater.Model.Factories
 {
     public interface IRepositoryFactory
     {
-        RepositoryUpdaterBase Create(RepositoryType repositoryType, string repositoryPath);
-        RepositoryUpdaterBase Create(string repositoryType, string repositoryPath);
+        RepositoryBase Create(RepositoryType repositoryType, string repositoryPath);
+        RepositoryBase Create(string repositoryType, string repositoryPath);
     }
 }

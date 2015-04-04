@@ -12,7 +12,7 @@ namespace RepoUpdater.Model.Tests
     public class RepositoryListTests
     {
         private readonly RepositoryList _target;
-        private readonly IList<RepositoryUpdaterBase> _repositories;
+        private readonly IList<RepositoryBase> _repositories;
         private const string Path = "path";
 
         public RepositoryListTests()
@@ -24,11 +24,11 @@ namespace RepoUpdater.Model.Tests
 
             _target = new RepositoryList(serializer, applicationSettings);
 
-            _repositories = new List<RepositoryUpdaterBase>()
+            _repositories = new List<RepositoryBase>()
             {
-                Substitute.For<RepositoryUpdaterBase>(Path, "GIT", command, eventBus),
-                Substitute.For<RepositoryUpdaterBase>(Path, "Tfs", command, eventBus),
-                Substitute.For<RepositoryUpdaterBase>(Path, "GitTfs", command, eventBus)
+                Substitute.For<RepositoryBase>(Path, "GIT", command, eventBus),
+                Substitute.For<RepositoryBase>(Path, "Tfs", command, eventBus),
+                Substitute.For<RepositoryBase>(Path, "GitTfs", command, eventBus)
             };
         }
 

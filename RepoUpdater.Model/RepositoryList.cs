@@ -10,7 +10,7 @@ namespace RepoUpdater.Model
 
         private readonly IRepositoryListSerializer _serializer;
         private readonly IApplicationSettings _applicationSettings;
-        private readonly ObservableCollection<RepositoryUpdaterBase> _repositoryUpdaterStrategies;
+        private readonly ObservableCollection<RepositoryBase> _repositoryUpdaterStrategies;
 
         #endregion
 
@@ -20,14 +20,14 @@ namespace RepoUpdater.Model
         {
             _serializer = serializer;
             _applicationSettings = applicationSettings;
-            _repositoryUpdaterStrategies = new ObservableCollection<RepositoryUpdaterBase>();
+            _repositoryUpdaterStrategies = new ObservableCollection<RepositoryBase>();
         }
 
         #endregion
 
         #region Properties
 
-        public ObservableCollection<RepositoryUpdaterBase> Repositories
+        public ObservableCollection<RepositoryBase> Repositories
         {
             get { return _repositoryUpdaterStrategies; }
         }
@@ -36,7 +36,7 @@ namespace RepoUpdater.Model
 
         #region Methods
 
-        public void Add(RepositoryUpdaterBase repository)
+        public void Add(RepositoryBase repository)
         {
             if (repository == null)
                 throw new ArgumentException("Repository cannot be null");
@@ -47,7 +47,7 @@ namespace RepoUpdater.Model
             _repositoryUpdaterStrategies.Add(repository);
         }
 
-        public void Remove(RepositoryUpdaterBase repository)
+        public void Remove(RepositoryBase repository)
         {
             if (_repositoryUpdaterStrategies.Contains(repository))
                 _repositoryUpdaterStrategies.Remove(repository);
@@ -63,7 +63,7 @@ namespace RepoUpdater.Model
 
         public void UpdateAll()
         {
-            foreach (RepositoryUpdaterBase item in _repositoryUpdaterStrategies)
+            foreach (RepositoryBase item in _repositoryUpdaterStrategies)
                 item.Update();
         }
 
@@ -81,7 +81,7 @@ namespace RepoUpdater.Model
         {
             Clear();
             var storedRepositories = _serializer.Load(_applicationSettings.DefaultConfigFile);
-            foreach (RepositoryUpdaterBase item in storedRepositories)
+            foreach (RepositoryBase item in storedRepositories)
                 _repositoryUpdaterStrategies.Add(item);
 
         }

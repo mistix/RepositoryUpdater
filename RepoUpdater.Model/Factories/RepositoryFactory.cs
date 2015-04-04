@@ -24,7 +24,7 @@ namespace RepoUpdater.Model.Factories
 
         #region Methods
 
-        public RepositoryUpdaterBase Create(RepositoryType repositoryType, string repositoryPath)
+        public RepositoryBase Create(RepositoryType repositoryType, string repositoryPath)
         {
             var command = new CommandLine();
 
@@ -41,7 +41,7 @@ namespace RepoUpdater.Model.Factories
             }
         }
 
-        public RepositoryUpdaterBase Create(string repositoryType, string repositoryPath)
+        public RepositoryBase Create(string repositoryType, string repositoryPath)
         {
             RepositoryType type = (RepositoryType)Enum.Parse(typeof(RepositoryType), repositoryType, true);
 

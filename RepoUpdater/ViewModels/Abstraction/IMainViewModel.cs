@@ -10,7 +10,7 @@ namespace RepoUpdater.ViewModels.Abstraction
     {
         #region Properties
 
-        ObservableCollection<RepositoryUpdaterBase> Repositories { get; }
+        ObservableCollection<RepositoryBase> Repositories { get; }
 
         ICommand CloseMainWindow { get; }
         ICommand AddRepository { get; }
@@ -31,5 +31,10 @@ namespace RepoUpdater.ViewModels.Abstraction
 
         #endregion
 
+        #region Methods
+
+        void Initialize();
+
+        #endregion
     }
 }

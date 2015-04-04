@@ -44,7 +44,7 @@
     <Compile Include="Abstraction\ICommandLine.cs" />
     <Compile Include="Abstraction\IRepositoryList.cs" />
     <Compile Include="Abstraction\IRepositoryListSerializer.cs" />
-    <Compile Include="Abstraction\RepositoryUpdaterBase.cs" />
+    <Compile Include="Abstraction\RepositoryBase.cs" />
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="Factories\IRepositoryFactory.cs" />

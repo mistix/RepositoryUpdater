@@ -15,7 +15,7 @@ namespace RepoUpdater.Converters
             if (value == null)
                 return value;
 
-            var repositories = value as IEnumerable<RepositoryUpdaterBase>;
+            var repositories = value as IEnumerable<RepositoryBase>;
             if (repositories == null)
                 return value;
 

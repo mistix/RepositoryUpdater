@@ -4,7 +4,7 @@ using TinyMessenger;
 
 namespace RepoUpdater.Model.Strategies
 {
-    public class GitRepository : RepositoryUpdaterBase
+    public class GitRepository : RepositoryBase
     {
         private const string PullArgument = "--git-dir={0}\\.git --work-tree={0} pull";
 

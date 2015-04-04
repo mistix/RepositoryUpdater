@@ -2,7 +2,7 @@
 
 namespace RepoUpdater.Abstract
 {
-    interface IDispatcherTimer
+    public interface IDispatcherTimer
     {
 
         #region Events

@@ -1,4 +1,5 @@
-﻿using RepoUpdater.Model;
+﻿using RepoUpdater.Abstract;
+using RepoUpdater.Model;
 using RepoUpdater.Model.Abstraction;
 using RepoUpdater.Model.Factories;
 using RepoUpdater.ViewModels.Abstraction;
@@ -20,6 +21,7 @@ namespace RepoUpdater.ViewModels
         private readonly ITinyMessengerHub _messageBus;
         private readonly IRepositoryList _repositoryList;
         private readonly IRepositoryFactory _repositoryFactory;
+        private readonly IRepositoryUpdater _updater;
 
         private RelayCommand _closeMainWindow;
         private RelayCommand _addRepository;
@@ -40,7 +42,7 @@ namespace RepoUpdater.ViewModels
 
         public string FolderPath { get; set; }
 
-        public ObservableCollection<RepositoryUpdaterBase> Repositories
+        public ObservableCollection<RepositoryBase> Repositories
         {
             get { return _repositoryList.Repositories; }
         }
@@ -85,16 +87,25 @@ namespace RepoUpdater.ViewModels
 
         #endregion
 
+        #region Public Methods
+
+        public void Initialize()
+        {
+            RunRepositoryUpdater();
+        }
+
+        #endregion
+
         #region Private Methods
 
         private void StopRepositoryUpdate()
         {
-            throw new NotImplementedException();
+            _updater.Stop();
         }
 
         private void RunRepositoryUpdater()
         {
-            throw new NotImplementedException();
+            _updater.Run();
         }
 
         private void RemoveExistingRepository()
@@ -105,7 +116,6 @@ namespace RepoUpdater.ViewModels
             _repositoryList.Remove(SelectedItemIndex);
             OnPropertyChanged("Repositories");
         }
-
 
         private void AddNewRepository()
         {
@@ -120,20 +130,21 @@ namespace RepoUpdater.ViewModels
 
             var repository = _repositoryFactory.Create(repositoryType, FolderPath);
             _repositoryList.Add(repository);
+            _repositoryList.Save();
 
             OnPropertyChanged("Repositories");
         }
 
         #endregion
 
-
         #region Constructors
 
-        public MainViewModel(ITinyMessengerHub messageBus, IRepositoryList repositoryList, IRepositoryFactory repositoryFactory)
+        public MainViewModel(ITinyMessengerHub messageBus, IRepositoryList repositoryList, IRepositoryFactory repositoryFactory, IRepositoryUpdater updater)
         {
             _messageBus = messageBus;
             _repositoryList = repositoryList;
             _repositoryFactory = repositoryFactory;
+            _updater = updater;
         }
 
         #endregion

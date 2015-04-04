@@ -4,7 +4,7 @@ namespace RepoUpdater.Model.Abstraction
 {
     public interface IRepositoryListSerializer
     {
-        void Save(IEnumerable<RepositoryUpdaterBase> repositories, string path);
-        IEnumerable<RepositoryUpdaterBase> Load(string path);
+        void Save(IEnumerable<RepositoryBase> repositories, string path);
+        IEnumerable<RepositoryBase> Load(string path);
     }
 }

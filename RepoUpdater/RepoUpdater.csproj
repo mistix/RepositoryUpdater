@@ -63,10 +63,12 @@
     </ApplicationDefinition>
     <Compile Include="Abstract\DispatcherTimerTimerRepository.cs" />
     <Compile Include="Abstract\INavigationManager.cs" />
+    <Compile Include="Abstract\IRepositoryUpdater.cs" />
     <Compile Include="Abstract\ITimeDispatcher.cs" />
     <Compile Include="Converters\RepositoryItemConverter.cs" />
     <Compile Include="Helper\NavigationManager.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="RepositoryUpdater.cs" />
     <Page Include="AddNewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

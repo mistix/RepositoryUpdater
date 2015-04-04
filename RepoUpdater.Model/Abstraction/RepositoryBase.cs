@@ -2,7 +2,7 @@
 
 namespace RepoUpdater.Model.Abstraction
 {
-    public abstract class RepositoryUpdaterBase
+    public abstract class RepositoryBase
     {
         private readonly string _path;
         private readonly string _name;
@@ -19,7 +19,7 @@ namespace RepoUpdater.Model.Abstraction
             get { return _name; }
         }
 
-        protected RepositoryUpdaterBase(string path, string name, ICommandLine command, ITinyMessengerHub eventBus)
+        protected RepositoryBase(string path, string name, ICommandLine command, ITinyMessengerHub eventBus)
         {
             _command = command;
             _eventBus = eventBus;

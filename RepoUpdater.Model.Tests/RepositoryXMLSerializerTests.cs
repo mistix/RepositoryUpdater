@@ -16,7 +16,7 @@ namespace RepoUpdater.Model.Tests
         #region Fields
 
         private readonly RepositoryXMLSerializer _target;
-        private IList<RepositoryUpdaterBase> _repositories;
+        private IList<RepositoryBase> _repositories;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace RepoUpdater.Model.Tests
         {
             var fakeBus = Substitute.For<ITinyMessengerHub>();
             var repositoryFactory = new RepositoryFactory(fakeBus);
-            _repositories = new List<RepositoryUpdaterBase>()
+            _repositories = new List<RepositoryBase>()
             {
                 repositoryFactory.Create(RepositoryType.Git, "C:\\fake"),
                 repositoryFactory.Create(RepositoryType.Tfs, "C:\\fake"),
@@ -43,15 +43,15 @@ namespace RepoUpdater.Model.Tests
         [Fact]
         public void LoadData_FileContainsMultipleData()
         {
-            IEnumerable<RepositoryUpdaterBase> repositories = _target.Load("TestData\\TestData.xml");
+            IEnumerable<RepositoryBase> repositories = _target.Load("TestData\\TestData.xml");
 
             Assert.Equal(2, repositories.Count());
 
-            RepositoryUpdaterBase firstElement = repositories.ElementAt(0);
+            RepositoryBase firstElement = repositories.ElementAt(0);
             Assert.True(firstElement is GitRepository);
             Assert.Equal(@"c:\git\git", firstElement.RepositoryPath);
 
-            RepositoryUpdaterBase secondElement = repositories.ElementAt(1);
+            RepositoryBase secondElement = repositories.ElementAt(1);
             Assert.True(secondElement is TfsRepository);
             Assert.Equal(@"c:\git\tfs", secondElement.RepositoryPath);
         }
@@ -59,11 +59,11 @@ namespace RepoUpdater.Model.Tests
         [Fact]
         public void LoadData_FileContainsSingleEntry()
         {
-            IEnumerable<RepositoryUpdaterBase> repositories = _target.Load("TestData\\TestData-singleElement.xml");
+            IEnumerable<RepositoryBase> repositories = _target.Load("TestData\\TestData-singleElement.xml");
 
             Assert.Equal(1, repositories.Count());
 
-            RepositoryUpdaterBase firstElement = repositories.ElementAt(0);
+            RepositoryBase firstElement = repositories.ElementAt(0);
             Assert.True(firstElement is GitRepository);
             Assert.Equal(@"c:\git\git", firstElement.RepositoryPath);
         }
@@ -71,7 +71,7 @@ namespace RepoUpdater.Model.Tests
         [Fact]
         public void LoadData_PathToFileIsInvalid()
         {
-            IEnumerable<RepositoryUpdaterBase> repositories = _target.Load("TestData\\TestData-singleElementkkk.xml");
+            IEnumerable<RepositoryBase> repositories = _target.Load("TestData\\TestData-singleElementkkk.xml");
 
             Assert.Empty(repositories);
         }
@@ -87,7 +87,7 @@ namespace RepoUpdater.Model.Tests
 
             Assert.True(File.Exists(filePath));
 
-            IEnumerable<RepositoryUpdaterBase> repositories = _target.Load(filePath);
+            IEnumerable<RepositoryBase> repositories = _target.Load(filePath);
 
             Assert.Equal(3, repositories.Count());
             Assert.True(RepositoriesEquals(repositories.ElementAt(0), _repositories[0]));
@@ -115,7 +115,7 @@ namespace RepoUpdater.Model.Tests
 
             Assert.True(File.Exists(filePath));
 
-            IEnumerable<RepositoryUpdaterBase> repositories = _target.Load(filePath);
+            IEnumerable<RepositoryBase> repositories = _target.Load(filePath);
 
             Assert.Equal(5, repositories.Count());
         }
@@ -124,7 +124,7 @@ namespace RepoUpdater.Model.Tests
 
         #region Test Helpers
 
-        private static bool RepositoriesEquals(RepositoryUpdaterBase left, RepositoryUpdaterBase right)
+        private static bool RepositoriesEquals(RepositoryBase left, RepositoryBase right)
         {
             return left.RepositoryPath == right.RepositoryPath
                    && left.Name == right.Name;

@@ -25,7 +25,7 @@ namespace RepoUpdater.Model
 
         #endregion
 
-        public void Save(IEnumerable<RepositoryUpdaterBase> repositories, string path)
+        public void Save(IEnumerable<RepositoryBase> repositories, string path)
         {
             if (repositories == null || !repositories.Any())
                 return;
@@ -46,7 +46,7 @@ namespace RepoUpdater.Model
                 }
 
                 XmlNode repositoriesNode = document.SelectSingleNode("repositories") ?? document.CreateElement("repositories");
-                foreach (RepositoryUpdaterBase item in repositories)
+                foreach (RepositoryBase item in repositories)
                 {
                     var repositoryNode = document.CreateElement("repository");
                     var typeNode = document.CreateElement("type");
@@ -70,11 +70,11 @@ namespace RepoUpdater.Model
             }
         }
 
-        public IEnumerable<RepositoryUpdaterBase> Load(string path)
+        public IEnumerable<RepositoryBase> Load(string path)
         {
-            var list = new List<RepositoryUpdaterBase>();
+            var list = new List<RepositoryBase>();
             if (!File.Exists(path))
-                return Enumerable.Empty<RepositoryUpdaterBase>();
+                return Enumerable.Empty<RepositoryBase>();
 
             try
             {
@@ -83,7 +83,7 @@ namespace RepoUpdater.Model
 
                 var repositories = document.SelectNodes("repositories/repository");
                 if (repositories == null)
-                    return Enumerable.Empty<RepositoryUpdaterBase>();
+                    return Enumerable.Empty<RepositoryBase>();
 
                 foreach (XmlNode node in repositories)
                 {
