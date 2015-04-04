@@ -77,13 +77,13 @@ namespace RepoUpdater.ViewModels
             if (_repositoryList.Repositories.Any(item => item.RepositoryPath == FolderPath))
                 return;
 
-            RepositoryType repositorType = RepositoryType.Unknown;
-            bool parseSuccess = Enum.TryParse(SelectedRepository, true, out repositorType);
+            RepositoryType repositoryType = RepositoryType.Unknown;
+            bool parseSuccess = Enum.TryParse(SelectedRepository, true, out repositoryType);
 
             if (!parseSuccess)
                 return;
 
-            var repository = _repositoryFactory.Create(repositorType, FolderPath);
+            var repository = _repositoryFactory.Create(repositoryType, FolderPath);
             _repositoryList.Add(repository);
 
             CloseWindow.Invoke(this, null);

@@ -1,10 +1,12 @@
-﻿using RepoUpdater.Abstract;
+﻿using RepoUpdater.Model;
 using RepoUpdater.Model.Abstraction;
 using RepoUpdater.ViewModels.Abstraction;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 using TinyMessenger;
 
@@ -15,18 +17,17 @@ namespace RepoUpdater.ViewModels
         #region Fields
 
         private readonly ITinyMessengerHub _messageBus;
-        private readonly INavigationManager _navigationManager;
         private readonly IRepositoryList _repositoryList;
 
         private RelayCommand _closeMainWindow;
-        private RelayCommand _openNewItemWindow;
-        private RelayCommand _openSettingsWindow;
-        private RelayCommand _openAboutWindow;
+        private RelayCommand _addRepository;
+        private RelayCommand _removeRepository;
 
         #endregion
 
         #region Events
 
+        public string FolderPath { get; set; }
         public event EventHandler CloseWindow;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,15 +37,9 @@ namespace RepoUpdater.ViewModels
 
         public ObservableCollection<RepositoryUpdaterBase> Repositories
         {
-            get { return _repositoryList.Repositories; }
-        }
-
-        public ICommand OpenNewItemWindow
-        {
             get
             {
-                return _openNewItemWindow ??
-                       (_openNewItemWindow = new RelayCommand(param => _navigationManager.OpenAddNewItemWindow()));
+                return _repositoryList.Repositories;
             }
         }
 
@@ -56,35 +51,52 @@ namespace RepoUpdater.ViewModels
             }
         }
 
-        public ICommand OpenSettingsWindow
+        public ICommand AddRepository
+        {
+            get { return _addRepository ?? (_addRepository = new RelayCommand(param => AddNewRepository())); }
+        }
+
+        public ICommand RemoveRepository
+        {
+            get { return _removeRepository ?? (_removeRepository = new RelayCommand(parma => RemoveExistingRepository())); }
+        }
+
+        public IEnumerable<string> RepositoryTypes
         {
             get
             {
-                return _openSettingsWindow ??
-                       (_openSettingsWindow = new RelayCommand(param => _navigationManager.OpenSettingsWindow()));
+                var types = Enum.GetNames(typeof(RepositoryType));
+                return types.Where(type => type != RepositoryType.Unknown.ToString());
             }
         }
 
-        public ICommand OpenInformationWindow
+        public string SelectedRepository { get; set; }
+
+        #endregion
+
+        #region Private Methods
+
+        private void RemoveExistingRepository()
         {
-            get
-            {
-                return _openAboutWindow ??
-                       (_openAboutWindow = new RelayCommand(param => _navigationManager.OpenAboutInformations()));
-            }
+            throw new NotImplementedException();
+        }
+
+
+        private void AddNewRepository()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
+
 
         #region Constructors
 
         public MainViewModel(
             ITinyMessengerHub messageBus,
-            INavigationManager navigationManager,
             IRepositoryList repositoryList)
         {
             _messageBus = messageBus;
-            _navigationManager = navigationManager;
             _repositoryList = repositoryList;
         }
 

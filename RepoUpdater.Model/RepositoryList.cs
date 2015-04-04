@@ -1,10 +1,13 @@
 ﻿using RepoUpdater.Model.Abstraction;
+using RepoUpdater.Model.Annotations;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace RepoUpdater.Model
 {
-    public class RepositoryList : IRepositoryList
+    public class RepositoryList : IRepositoryList, INotifyPropertyChanged
     {
         #region Fields
 
@@ -76,6 +79,15 @@ namespace RepoUpdater.Model
             foreach (RepositoryUpdaterBase item in storedRepositories)
                 _repositoryUpdaterStrategies.Add(item);
 
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

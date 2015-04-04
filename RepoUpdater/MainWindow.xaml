@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:userControls="clr-namespace:RepoUpdater.UserControls"
         xmlns:converters="clr-namespace:RepoUpdater.Converters"
         mc:Ignorable="d"
         Title="V.R.U" Height="350" Width="525" >
@@ -10,8 +11,14 @@
         <Grid.Resources>
             <converters:RepositoryItemConverter x:Key="RepositoryItemConverter" />
         </Grid.Resources>
-        <StackPanel>
-            <Menu IsMainMenu="True" Height="24" VerticalAlignment="Top">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24"></RowDefinition>
+                <RowDefinition Height="8*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Menu IsMainMenu="True" Height="24" VerticalAlignment="Top" Grid.Row="0">
                 <MenuItem Header="_File" >
                     <MenuItem Header="_Add..." Command="{Binding Path=OpenNewItemWindow}" />
                     <Separator />
@@ -21,7 +28,7 @@
                 <MenuItem Header="_About" Command="{Binding Path=ShowAboutWindow}"/>
             </Menu>
 
-            <DataGrid ItemsSource="{Binding Repositories, Converter={StaticResource RepositoryItemConverter}, Mode=OneWay}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid ItemsSource="{Binding Repositories, Converter={StaticResource RepositoryItemConverter}, Mode=OneWay}" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Typ" Width="1*"  Binding="{Binding RepositoryType}" />
                     <DataGridTextColumn Header="Śćieżka" Width="4*" Binding="{Binding Path}" />
@@ -30,6 +37,20 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-        </StackPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox IsEditable="False" IsReadOnly="True" Grid.Column="0" ItemsSource="{Binding RepositoryTypes}" SelectedValue="{Binding SelectedRepository}" />
+                <userControls:FolderPicker Text="{Binding Path=FolderPath}" Grid.Column="1" Description="Folder for log files" />
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Grid.Column="2">
+                    <Button Width="50" Margin="5" Command="{Binding Path=AddRepository}">Dodaj</Button>
+                    <Button Width="50" Margin="5" Command="{Binding Path=RemoveRepository}">Usuń</Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
