@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:userControls="clr-namespace:RepoUpdater.UserControls"
+        xmlns:tb="http://www.hardcodet.net/taskbar" 
         xmlns:converters="clr-namespace:RepoUpdater.Converters"
         mc:Ignorable="d"
         Title="V.R.U" Height="350" Width="525" >
@@ -55,6 +56,15 @@
                     <Button Width="50" Margin="5" Command="{Binding Path=RemoveRepository}">Usuń</Button>
                 </StackPanel>
             </Grid>
+
+            <tb:TaskbarIcon
+                IconSource="/Icons/network_server_database.ico"
+                ToolTipText="Repository updater"
+                LeftClickCommand="{Binding TrayIconClicked}"
+                LeftClickCommandParameter="Open/close main window"
+                DoubleClickCommand="{Binding TrayIconClicked}"
+                DoubleClickCommandParameter="Open/close main window"
+                />
         </Grid>
     </Grid>
 </Window>

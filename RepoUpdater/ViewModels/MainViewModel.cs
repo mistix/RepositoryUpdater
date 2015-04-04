@@ -28,12 +28,14 @@ namespace RepoUpdater.ViewModels
         private RelayCommand _removeRepository;
         private RelayCommand _startUpdateRepositories;
         private RelayCommand _stopUpdateRepositories;
+        private RelayCommand _trayIconClicked;
 
         #endregion
 
         #region Events
 
         public event EventHandler CloseWindow;
+        public event EventHandler ShowHideWindow;
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
@@ -72,6 +74,11 @@ namespace RepoUpdater.ViewModels
             get { return _stopUpdateRepositories ?? (_stopUpdateRepositories = new RelayCommand(param => StopRepositoryUpdate())); }
         }
 
+        public ICommand TrayIconClicked
+        {
+            get { return _trayIconClicked ?? (_trayIconClicked = new RelayCommand(param => ShowHideWindow(this, null))); }
+        }
+
         public IEnumerable<string> RepositoryTypes
         {
             get
@@ -105,7 +112,7 @@ namespace RepoUpdater.ViewModels
 
         private void RunRepositoryUpdater()
         {
-            _updater.Run();
+            //_updater.Run();
         }
 
         private void RemoveExistingRepository()

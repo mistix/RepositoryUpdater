@@ -17,6 +17,7 @@ namespace RepoUpdater.ViewModels.Abstraction
         ICommand RemoveRepository { get; }
         ICommand StartUpdateRepositories { get; }
         ICommand StopUpdateRepositories { get; }
+        ICommand TrayIconClicked { get; }
 
         IEnumerable<string> RepositoryTypes { get; }
         int SelectedItemIndex { get; set; }
@@ -28,6 +29,7 @@ namespace RepoUpdater.ViewModels.Abstraction
         #region Events
 
         event EventHandler CloseWindow;
+        event EventHandler ShowHideWindow;
 
         #endregion
 

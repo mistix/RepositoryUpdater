@@ -9,31 +9,28 @@ namespace RepoUpdater
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region Fields
-
-        private IMainViewModel _mainViewModel;
-
-        #endregion
-
         #region Construcotrs
 
         public MainWindow(IMainViewModel mainViewModel)
         {
             InitializeComponent();
             DataContext = mainViewModel;
-            _mainViewModel = mainViewModel;
 
             mainViewModel.CloseWindow += (sender, arguments) => Close();
+            mainViewModel.ShowHideWindow += MainViewModelOnShowHideWindow;
+
+            mainViewModel.Initialize();
         }
 
         #endregion
 
-        #region Methods
+        #region Private Methods
 
-        protected override void OnInitialized(EventArgs e)
+        private void MainViewModelOnShowHideWindow(object sender, EventArgs eventArgs)
         {
-            base.OnInitialized(e);
-            _mainViewModel.Initialize();
+            Visibility = Visibility == Visibility.Visible
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
 
         #endregion
