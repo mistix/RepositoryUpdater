@@ -61,7 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Abstract\DispatcherTimerTimerRepository.cs" />
     <Compile Include="Abstract\INavigationManager.cs" />
+    <Compile Include="Abstract\ITimeDispatcher.cs" />
     <Compile Include="Converters\RepositoryItemConverter.cs" />
     <Compile Include="Helper\NavigationManager.cs" />
     <Compile Include="RelayCommand.cs" />

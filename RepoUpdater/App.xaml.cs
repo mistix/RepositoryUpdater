@@ -44,8 +44,7 @@ namespace RepoUpdater
             _container.Bind<IApplicationSettings>().To<ApplicationSettings>();
             _container.Bind<IRepositoryListSerializer>().To<RepositoryXMLSerializer>();
             _container.Bind<IAddNewItemViewModel>().To<AddNewItemViewModel>();
-
-            _container.Bind<AddNewItem>().ToSelf().InSingletonScope();
+            _container.Bind<IDispatcherTimer>().To<DispatcherTimerTimerRepository>();
         }
 
         private void ComposeObjects()
